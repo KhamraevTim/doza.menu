@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>DOZA — Меню</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+        
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: #ff6b35;
+            top: -100px;
+            left: -100px;
+        }
+        
+        .blob-2 {
+            width: 250px;
+            height: 250px;
+            background: #f7931e;
+            bottom: 20%;
+            right: -80px;
+            animation-delay: -5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -30px) scale(1.1); }
+        }
+        
+        .mobile-header {
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 40px;
+        }
+        
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -4px;
+            margin-bottom: 8px;
+        }
+        
+        .hero-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 0 20px 20px;
+            margin: 0 -20px;
+            position: sticky;
+            top: 70px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tab {
+            flex-shrink: 0;
+            padding: 12px 20px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .category-tab.active {
+            background: #ff6b35;
+            color: #000;
+            border-color: #ff6b35;
+        }
+        
+        .section-header {
+            padding: 30px 20px 20px;
+        }
+        
+        .section-label {
+            color: #ff6b35;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        
+        .section-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        
+        .item-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 0 20px 12px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .item-name {
+            font-size: 17px;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-left: 12px;
+        }
+        
+        .item-desc {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .item-sizes {
+            color: #666;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+        
+        /* Toppings */
+        .topping-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 0 20px;
+        }
+        
+        .topping-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .topping-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .topping-price {
+            color: #ff6b35;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        /* QR Section */
+        .qr-section {
+            margin-top: 60px;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(255,107,53,0.1) 0%, rgba(10,10,10,1) 100%);
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            text-align: center;
+        }
+        
+        .qr-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .qr-subtitle {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+        
+        .qr-box {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            display: inline-block;
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        #qrcode {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .qr-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background: #0a0a0a;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            color: #ff6b35;
+            border: 3px solid #fff;
+        }
+        
+        .qr-url {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 20px 24px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #666;
+            text-decoration: none;
+            font-size: 10px;
+            transition: color 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #ff6b35;
+        }
+        
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+        }
+        
+        .main-content {
+            padding-bottom: 100px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain"></div>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <header class="mobile-header fixed top-0 left-0 right-0 z-50 px-5 py-4 flex justify-between items-center">
+        <div class="font-syne text-3xl font-bold tracking-tighter">DOZA</div>
+        <div class="text-right">
+            <div class="text-[10px] text-gray-500 uppercase tracking-widest">Open</div>
+            <div class="text-xs font-bold">08:00 — 22:00</div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <h1 class="font-syne hero-title">DOZA</h1>
+        <p class="hero-subtitle">Кофе и блинчики</p>
+    </section>
+
+    <main class="main-content">
+
+        <!-- Tabs -->
+        <div class="category-tabs">
+            <button class="category-tab active" onclick="switchTab('blini', this)">Блинчики</button>
+            <button class="category-tab" onclick="switchTab('coffee', this)">Кофе</button>
+            <button class="category-tab" onclick="switchTab('toppings', this)">Добавки</button>
+        </div>
+
+        <!-- Блинчики (первые по умолчанию) -->
+        <div id="blini" class="tab-content active">
+            
+            <!-- Обычные блинчики -->
+            <div class="section-header">
+                <div class="section-label">Блинчики</div>
+                <div class="section-name">Классические</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Блинчики Классик</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-desc">С мёдом или шоколадом, с декором</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Блинчик с Какао</div>
+                    <div class="item-price">28 000</div>
+                </div>
+                <div class="item-desc">С мёдом или шоколадом, с декором</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Начинка Классик</div>
+                    <div class="item-price">32 000</div>
+                </div>
+                <div class="item-desc">Молоко, творог, шоколад</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Начинка Ягодная</div>
+                    <div class="item-price">35 000</div>
+                </div>
+                <div class="item-desc">Ягоды, творог, мёд</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Начинка Банан-Шоколад</div>
+                    <div class="item-price">35 000</div>
+                </div>
+                <div class="item-desc">Банан и шоколад</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Начинка Клубника-Шоколад</div>
+                    <div class="item-price">38 000</div>
+                </div>
+                <div class="item-desc">Клубника и шоколад</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Начинка Микс</div>
+                    <div class="item-price">42 000</div>
+                </div>
+                <div class="item-desc">Банан, клубника и шоколад</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Начинка Йогуртовая</div>
+                    <div class="item-price">40 000</div>
+                </div>
+                <div class="item-desc">Банан, ягоды, йогурт</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Рафаэлло</div>
+                    <div class="item-price">38 000</div>
+                </div>
+                <div class="item-desc">Творог, кокосовые стружки, молоко</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Спагетти из блинчиков</div>
+                    <div class="item-price">45 000</div>
+                </div>
+                <div class="item-desc">Шоколад и фрукты</div>
+            </div>
+
+            <!-- Блинчики Роллы -->
+            <div class="section-header" style="margin-top: 40px;">
+                <div class="section-label" style="color: #f7931e;">Роллы</div>
+                <div class="section-name">Блинчики Роллы</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Ролл Классический</div>
+                    <div class="item-price">30 000</div>
+                </div>
+                <div class="item-desc">Свёрнутый блин, нарезанный на порции</div>
+                <div class="item-sizes">6 кусочков • 200г</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Ролл Двойной</div>
+                    <div class="item-price">40 000</div>
+                </div>
+                <div class="item-desc">Два блина в одном рулете</div>
+                <div class="item-sizes">8 кусочков • 280г</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Ролл Макси</div>
+                    <div class="item-price">50 000</div>
+                </div>
+                <div class="item-desc">Увеличенный рулет для компании</div>
+                <div class="item-sizes">10 кусочков • 350г</div>
+            </div>
+
+            <!-- Блинчики Макароны -->
+            <div class="section-header" style="margin-top: 40px;">
+                <div class="section-label" style="color: #8b5cf6;">Макароны</div>
+                <div class="section-name">Блинчики Макароны</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Набор Мини</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-desc">5 мини-блинчиков без начинки</div>
+                <div class="item-sizes">5 шт. • 150г</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Набор Стандарт</div>
+                    <div class="item-price">35 000</div>
+                </div>
+                <div class="item-desc">8 мини-блинчиков</div>
+                <div class="item-sizes">8 шт. • 240г</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Набор Макси</div>
+                    <div class="item-price">50 000</div>
+                </div>
+                <div class="item-desc">12 мини-блинчиков для компании</div>
+                <div class="item-sizes">12 шт. • 360г</div>
+            </div>
+        </div>
+
+        <!-- Кофе -->
+        <div id="coffee" class="tab-content">
+            <div class="section-header">
+                <div class="section-label">Горячий кофе</div>
+                <div class="section-name">Классика</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Espresso</div>
+                    <div class="item-price">18 000</div>
+                </div>
+                <div class="item-sizes">30мл / 60мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Americano</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-sizes">30мл / 60мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Cappuccino / Mix</div>
+                    <div class="item-price">18 000</div>
+                </div>
+                <div class="item-sizes">50мл / 85мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Flat White</div>
+                    <div class="item-price">22 000</div>
+                </div>
+                <div class="item-sizes">75мл / 95мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Latte Macchiato</div>
+                    <div class="item-price">22 000</div>
+                </div>
+                <div class="item-sizes">55мл / 95мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Caffelatte</div>
+                    <div class="item-price">18 000</div>
+                </div>
+                <div class="item-sizes">55мл / 95мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">2x Espresso</div>
+                    <div class="item-price">24 000</div>
+                </div>
+                <div class="item-sizes">60мл / 120мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Long</div>
+                    <div class="item-price">18 000</div>
+                </div>
+                <div class="item-sizes">30мл / 60мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Cortado</div>
+                    <div class="item-price">22 000</div>
+                </div>
+                <div class="item-sizes">40мл / 80мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Espresso SOUL</div>
+                    <div class="item-price">21 000</div>
+                </div>
+                <div class="item-sizes">35мл / 70мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Doppio+</div>
+                    <div class="item-price">23 000</div>
+                </div>
+                <div class="item-sizes">60мл / 70мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Espresso Macchiato</div>
+                    <div class="item-price">21 000</div>
+                </div>
+                <div class="item-sizes">35мл / 70мл</div>
+            </div>
+
+            <div class="section-header" style="margin-top: 40px;">
+                <div class="section-label" style="color: #8b5cf6;">Холодный кофе</div>
+                <div class="section-name">Iced & Cold Brew</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Iced Americano</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-sizes">30мл / 60мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Iced Latte Macchiato</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-sizes">55мл / 95мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Iced Cappuccino</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-sizes">45мл / 85мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Cold Brew</div>
+                    <div class="item-price">21 000</div>
+                </div>
+                <div class="item-sizes">60мл / 75мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Iced Caffelatte</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-sizes">55мл / 95мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Cold Brew to MIX</div>
+                    <div class="item-price">21 000</div>
+                </div>
+                <div class="item-sizes">60мл / 70мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Iced Espresso</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-sizes">30мл / 60мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Iced Flat White</div>
+                    <div class="item-price">28 000</div>
+                </div>
+                <div class="item-sizes">80мл / 100мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Cold Brew Cappuccino</div>
+                    <div class="item-price">28 000</div>
+                </div>
+                <div class="item-sizes">80мл / 100мл</div>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <div class="item-name">Cold Brew Latte</div>
+                    <div class="item-price">30 000</div>
+                </div>
+                <div class="item-sizes">90мл / 120мл</div>
+            </div>
+        </div>
+
+        <!-- Добавки -->
+        <div id="toppings" class="tab-content">
+            <div class="section-header">
+                <div class="section-label" style="color: #10b981;">Сладкие</div>
+                <div class="section-name">Добавки</div>
+            </div>
+            
+            <div class="topping-grid">
+                <div class="topping-card">
+                    <div class="topping-name">Мёд натуральный</div>
+                    <div class="topping-price">+5 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Шоколадная паста</div>
+                    <div class="topping-price">+7 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Сгущёнка</div>
+                    <div class="topping-price">+5 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Сметана</div>
+                    <div class="topping-price">+4 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Варенье малиновое</div>
+                    <div class="topping-price">+6 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Масло сливочное</div>
+                    <div class="topping-price">+3 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Банан свежий</div>
+                    <div class="topping-price">+6 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Ягодный микс</div>
+                    <div class="topping-price">+9 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Грецкие орехи</div>
+                    <div class="topping-price">+7 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Мороженое</div>
+                    <div class="topping-price">+8 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Карамельный соус</div>
+                    <div class="topping-price">+6 000</div>
+                </div>
+                
+                <div class="topping-card">
+                    <div class="topping-name">Творог с изюмом</div>
+                    <div class="topping-price">+8 000</div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; color: #666; font-size: 12px; margin-top: 20px; padding: 0 20px;">
+                Можно выбрать несколько добавок к одному заказу
+            </p>
+        </div>
+
+        <!-- QR Section -->
+        <div class="qr-section" id="qr">
+            <div class="qr-title">Поделиться меню</div>
+            <div class="qr-subtitle">Отсканируйте, чтобы открыть на своём телефоне</div>
+            
+            <div class="qr-box">
+                <div id="qrcode"></div>
+                <div class="qr-logo">D</div>
+            </div>
+            
+            <div class="qr-url" id="qrUrl">Загрузка...</div>
+        </div>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="#home" class="nav-item active" onclick="setActive(this)">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Главная</span>
+        </a>
+        <a href="#blini" class="nav-item" onclick="setActive(this)">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+            </svg>
+            <span>Блины</span>
+        </a>
+        <a href="#coffee" class="nav-item" onclick="setActive(this)">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            </svg>
+            <span>Кофе</span>
+        </a>
+        <a href="#qr" class="nav-item" onclick="setActive(this)">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>QR</span>
+        </a>
+    </nav>
+
+    <script>
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        
+        function setActive(el) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
+        }
+        
+        // Generate QR
+        const currentUrl = window.location.href.split('?')[0].split('#')[0];
+        document.getElementById('qrUrl').textContent = currentUrl.replace('https://', '').replace('http://', '');
+        
+        new QRCode(document.getElementById('qrcode'), {
+            text: currentUrl,
+            width: 160,
+            height: 160,
+            colorDark: '#0a0a0a',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        
+        // Scroll spy
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                        if (nav.getAttribute('href') === '#' + id) {
+                            nav.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        ['home', 'blini', 'coffee', 'toppings', 'qr'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
