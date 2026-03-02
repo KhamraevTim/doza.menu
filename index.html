@@ -154,6 +154,7 @@
             white-space: nowrap;
             transition: all 0.3s;
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
         
         .category-tab.active {
@@ -190,6 +191,16 @@
             padding: 20px;
             margin: 0 20px 12px;
             backdrop-filter: blur(8px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .item-header {
@@ -252,6 +263,9 @@
             padding: 16px;
             text-align: center;
             backdrop-filter: blur(8px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
         }
         
         .topping-name {
@@ -352,6 +366,10 @@
             text-decoration: none;
             font-size: 10px;
             transition: color 0.3s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
         }
         
         .nav-item.active {
@@ -375,6 +393,131 @@
         .tab-content.active {
             display: block;
         }
+        
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn {
+            padding: 6px 12px;
+            border-radius: 12px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .lang-btn.active {
+            background: #ff6b35;
+            color: #000;
+        }
+        
+        /* Contact Buttons */
+        .contact-buttons {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+        
+        .contact-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: pulse 2s infinite;
+        }
+        
+        .contact-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .contact-btn.telegram {
+            background: #0088cc;
+            color: white;
+        }
+        
+        .contact-btn.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+        
+        .contact-btn.phone {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+            50% { box-shadow: 0 4px 30px rgba(255,107,53,0.4); }
+        }
+        
+        /* Search */
+        .search-container {
+            padding: 0 20px 20px;
+            position: sticky;
+            top: 120px;
+            z-index: 40;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            margin: 0 -20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .search-input::placeholder {
+            color: #888;
+        }
+        
+        .hidden-item {
+            display: none !important;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -387,188 +530,200 @@
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('ru')" data-lang="ru">RU</button>
+        <button class="lang-btn" onclick="setLanguage('en')" data-lang="en">EN</button>
+        <button class="lang-btn" onclick="setLanguage('uz')" data-lang="uz">UZ</button>
+    </div>
+
     <header class="mobile-header fixed top-0 left-0 right-0 z-50 px-5 py-4 flex justify-between items-center">
         <div class="font-syne text-3xl font-bold tracking-tighter">DOZA</div>
         <div class="text-right">
-            <div class="text-[10px] text-gray-400 uppercase tracking-widest">Open</div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-widest" data-i18n="open">Open</div>
             <div class="text-xs font-bold">08:00 — 22:00</div>
         </div>
     </header>
 
     <section class="hero" id="home">
         <h1 class="font-syne hero-title">DOZA</h1>
-        <p class="hero-subtitle">Кофе и блинчики</p>
+        <p class="hero-subtitle" data-i18n="subtitle">Кофе и блинчики</p>
     </section>
 
     <main class="main-content">
 
         <div class="category-tabs">
-            <button class="category-tab active" onclick="switchTab('blini', this)">Блинчики</button>
-            <button class="category-tab" onclick="switchTab('coffee', this)">Кофе</button>
-            <button class="category-tab" onclick="switchTab('toppings', this)">Добавки</button>
+            <button class="category-tab active" onclick="switchTab('blini', this)" data-i18n="tab_blini">Блинчики</button>
+            <button class="category-tab" onclick="switchTab('coffee', this)" data-i18n="tab_coffee">Кофе</button>
+            <button class="category-tab" onclick="switchTab('toppings', this)" data-i18n="tab_toppings">Добавки</button>
+        </div>
+
+        <!-- Search -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск..." data-i18n-placeholder="search_placeholder" oninput="searchItems(this.value)">
         </div>
 
         <!-- Блинчики -->
         <div id="blini" class="tab-content active">
             
             <div class="section-header">
-                <div class="section-label">Блинчики</div>
-                <div class="section-name">Классические</div>
+                <div class="section-label" data-i18n="section_blini">Блинчики</div>
+                <div class="section-name" data-i18n="classic">Классические</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="классик classic klassik">
                 <div class="item-header">
-                    <div class="item-name">Блинчики Классик</div>
+                    <div class="item-name" data-i18n="blini_classic">Блинчики Классик</div>
                     <div class="item-price">25 000</div>
                 </div>
-                <div class="item-desc">С мёдом или шоколадом, с декором</div>
+                <div class="item-desc" data-i18n="desc_classic">С мёдом или шоколадом, с декором</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="какао cocoa kakao">
                 <div class="item-header">
-                    <div class="item-name">Блинчик с Какао</div>
+                    <div class="item-name" data-i18n="blini_cocoa">Блинчик с Какао</div>
                     <div class="item-price">28 000</div>
                 </div>
-                <div class="item-desc">С мёдом или шоколадом, с декором</div>
+                <div class="item-desc" data-i18n="desc_cocoa">С мёдом или шоколадом, с декором</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="начинка filling nachinka">
                 <div class="item-header">
-                    <div class="item-name">Начинка Классик</div>
+                    <div class="item-name" data-i18n="filling_classic">Начинка Классик</div>
                     <div class="item-price">32 000</div>
                 </div>
-                <div class="item-desc">Молоко, шоколад</div>
+                <div class="item-desc" data-i18n="desc_filling_classic">Молоко, шоколад</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="ягодная berry ягоды">
                 <div class="item-header">
-                    <div class="item-name">Начинка Ягодная</div>
+                    <div class="item-name" data-i18n="filling_berry">Начинка Ягодная</div>
                     <div class="item-price">35 000</div>
                 </div>
-                <div class="item-desc">Ягоды, мёд</div>
+                <div class="item-desc" data-i18n="desc_filling_berry">Ягоды, мёд</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="банан шоколад banana chocolate">
                 <div class="item-header">
-                    <div class="item-name">Начинка Банан-Шоколад</div>
+                    <div class="item-name" data-i18n="filling_banana_choco">Начинка Банан-Шоколад</div>
                     <div class="item-price">35 000</div>
                 </div>
-                <div class="item-desc">Банан и шоколад</div>
+                <div class="item-desc" data-i18n="desc_banana_choco">Банан и шоколад</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="клубника шоколад strawberry chocolate">
                 <div class="item-header">
-                    <div class="item-name">Начинка Клубника-Шоколад</div>
+                    <div class="item-name" data-i18n="filling_strawberry_choco">Начинка Клубника-Шоколад</div>
                     <div class="item-price">35 000</div>
                 </div>
-                <div class="item-desc">Клубника и шоколад</div>
+                <div class="item-desc" data-i18n="desc_strawberry_choco">Клубника и шоколад</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="микс mix">
                 <div class="item-header">
-                    <div class="item-name">Начинка Микс</div>
+                    <div class="item-name" data-i18n="filling_mix">Начинка Микс</div>
                     <div class="item-price">35 000</div>
                 </div>
-                <div class="item-desc">Банан, клубника и шоколад</div>
+                <div class="item-desc" data-i18n="desc_mix">Банан, клубника и шоколад</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="йогуртовая yogurt йогурт">
                 <div class="item-header">
-                    <div class="item-name">Начинка Йогуртовая</div>
+                    <div class="item-name" data-i18n="filling_yogurt">Начинка Йогуртовая</div>
                     <div class="item-price">40 000</div>
                 </div>
-                <div class="item-desc">Банан, ягоды, йогурт</div>
+                <div class="item-desc" data-i18n="desc_yogurt">Банан, ягоды, йогурт</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="рафаэлло rafaello кокос">
                 <div class="item-header">
-                    <div class="item-name">Рафаэлло</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="rafaello">Рафаэлло</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">Кокосовые стружки, молоко</div>
+                <div class="item-desc" data-i18n="desc_rafaello">Кокосовые стружки, молоко</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="спагетти spaghetti блинчики">
                 <div class="item-header">
-                    <div class="item-name">Спагетти из блинчиков</div>
+                    <div class="item-name" data-i18n="spaghetti">Спагетти из блинчиков</div>
                     <div class="item-price">45 000</div>
                 </div>
-                <div class="item-desc">Шоколад и фрукты</div>
+                <div class="item-desc" data-i18n="desc_spaghetti">Шоколад и фрукты</div>
             </div>
 
             <div class="section-header" style="margin-top: 40px;">
-                <div class="section-label" style="color: #f7931e;">Роллы</div>
-                <div class="section-name">Блинчики Роллы</div>
+                <div class="section-label" style="color: #f7931e;" data-i18n="section_rolls">Роллы</div>
+                <div class="section-name" data-i18n="blini_rolls">Блинчики Роллы</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="ролл классический roll classic">
                 <div class="item-header">
-                    <div class="item-name">Ролл Классический</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="roll_classic">Ролл Классический</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">Свёрнутый блин, нарезанный на порции</div>
-                <div class="item-sizes">6 кусочков • 200г</div>
+                <div class="item-desc" data-i18n="desc_roll_classic">Свёрнутый блин, нарезанный на порции</div>
+                <div class="item-sizes" data-i18n="size_6_200">6 кусочков • 200г</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="ролл двойной roll double">
                 <div class="item-header">
-                    <div class="item-name">Ролл Двойной</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="roll_double">Ролл Двойной</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">Два блина в одном рулете</div>
-                <div class="item-sizes">8 кусочков • 280г</div>
+                <div class="item-desc" data-i18n="desc_roll_double">Два блина в одном рулете</div>
+                <div class="item-sizes" data-i18n="size_8_280">8 кусочков • 280г</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="ролл макси roll maxi">
                 <div class="item-header">
-                    <div class="item-name">Ролл Макси</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="roll_maxi">Ролл Макси</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">Увеличенный рулет для компании</div>
-                <div class="item-sizes">10 кусочков • 350г</div>
+                <div class="item-desc" data-i18n="desc_roll_maxi">Увеличенный рулет для компании</div>
+                <div class="item-sizes" data-i18n="size_10_350">10 кусочков • 350г</div>
             </div>
 
             <div class="section-header" style="margin-top: 40px;">
-                <div class="section-label" style="color: #8b5cf6;">Макароны</div>
-                <div class="section-name">Блинчики Макароны</div>
+                <div class="section-label" style="color: #8b5cf6;" data-i18n="section_macarons">Макароны</div>
+                <div class="section-name" data-i18n="blini_macarons">Блинчики Макароны</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="набор мини set mini">
                 <div class="item-header">
-                    <div class="item-name">Набор Мини</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="set_mini">Набор Мини</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">5 мини-блинчиков без начинки</div>
-                <div class="item-sizes">5 шт. • 150г</div>
+                <div class="item-desc" data-i18n="desc_set_mini">5 мини-блинчиков без начинки</div>
+                <div class="item-sizes" data-i18n="size_5_150">5 шт. • 150г</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="набор стандарт set standard">
                 <div class="item-header">
-                    <div class="item-name">Набор Стандарт</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="set_standard">Набор Стандарт</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">8 мини-блинчиков</div>
-                <div class="item-sizes">8 шт. • 240г</div>
+                <div class="item-desc" data-i18n="desc_set_standard">8 мини-блинчиков</div>
+                <div class="item-sizes" data-i18n="size_8_240">8 шт. • 240г</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="набор макси set maxi">
                 <div class="item-header">
-                    <div class="item-name">Набор Макси</div>
-                    <div class="item-price soon">Скоро...</div>
+                    <div class="item-name" data-i18n="set_maxi">Набор Макси</div>
+                    <div class="item-price soon" data-i18n="soon">Скоро...</div>
                 </div>
-                <div class="item-desc">12 мини-блинчиков для компании</div>
-                <div class="item-sizes">12 шт. • 360г</div>
+                <div class="item-desc" data-i18n="desc_set_maxi">12 мини-блинчиков для компании</div>
+                <div class="item-sizes" data-i18n="size_12_360">12 шт. • 360г</div>
             </div>
         </div>
 
         <!-- Кофе -->
         <div id="coffee" class="tab-content">
             <div class="section-header">
-                <div class="section-label">Горячий кофе</div>
-                <div class="section-name">Классика</div>
+                <div class="section-label" data-i18n="section_hot_coffee">Горячий кофе</div>
+                <div class="section-name" data-i18n="classic">Классика</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="espresso эспрессо">
                 <div class="item-header">
                     <div class="item-name">Espresso</div>
                     <div class="item-price">12 000 / 18 000</div>
@@ -576,7 +731,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="americano американо">
                 <div class="item-header">
                     <div class="item-name">Americano</div>
                     <div class="item-price">12 000 / 20 000</div>
@@ -584,7 +739,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="cappuccino капучино mix">
                 <div class="item-header">
                     <div class="item-name">Cappuccino / Mix</div>
                     <div class="item-price">15 000 / 18 000</div>
@@ -592,7 +747,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="flat white флэт уайт">
                 <div class="item-header">
                     <div class="item-name">Flat White</div>
                     <div class="item-price">15 000 / 22 000</div>
@@ -600,7 +755,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="latte macchiato латте макиато">
                 <div class="item-header">
                     <div class="item-name">Latte Macchiato</div>
                     <div class="item-price">18 000 / 22 000</div>
@@ -608,7 +763,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="caffelatte кофе латте">
                 <div class="item-header">
                     <div class="item-name">Caffelatte</div>
                     <div class="item-price">15 000 / 18 000</div>
@@ -616,7 +771,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="2x espresso double двойной">
                 <div class="item-header">
                     <div class="item-name">2x Espresso</div>
                     <div class="item-price">12 000 / 24 000</div>
@@ -624,7 +779,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="long лонг">
                 <div class="item-header">
                     <div class="item-name">Long</div>
                     <div class="item-price">12 000 / 18 000</div>
@@ -632,7 +787,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="cortado кортадо">
                 <div class="item-header">
                     <div class="item-name">Cortado</div>
                     <div class="item-price">12 000 / 22 000</div>
@@ -640,7 +795,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="espresso soul эспрессо соул">
                 <div class="item-header">
                     <div class="item-name">Espresso SOUL</div>
                     <div class="item-price">12 000 / 21 000</div>
@@ -648,7 +803,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="doppio доппио">
                 <div class="item-header">
                     <div class="item-name">Doppio+</div>
                     <div class="item-price">15 000 / 23 000</div>
@@ -656,7 +811,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="espresso macchiato эспрессо макиато">
                 <div class="item-header">
                     <div class="item-name">Espresso Macchiato</div>
                     <div class="item-price">12 000 / 21 000</div>
@@ -664,21 +819,20 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
 
-            <!-- Новый вид кофе -->
-            <div class="item-card" style="border-color: #ff6b35; background: rgba(255,107,53,0.1);">
+            <div class="item-card" style="border-color: #ff6b35; background: rgba(255,107,53,0.1);" data-search="рисунок latte art латте арт picture">
                 <div class="item-header">
-                    <div class="item-name">Кофе с рисунком</div>
+                    <div class="item-name" data-i18n="coffee_art">Кофе с рисунком</div>
                     <div class="item-price">40 000</div>
                 </div>
-                <div class="item-desc">Латте-арт с вашим изображением</div>
+                <div class="item-desc" data-i18n="desc_coffee_art">Латте-арт с вашим изображением</div>
             </div>
 
             <div class="section-header" style="margin-top: 40px;">
-                <div class="section-label" style="color: #8b5cf6;">Холодный кофе</div>
+                <div class="section-label" style="color: #8b5cf6;" data-i18n="section_iced_coffee">Холодный кофе</div>
                 <div class="section-name">Iced & Cold Brew</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="iced americano айс американо">
                 <div class="item-header">
                     <div class="item-name">Iced Americano</div>
                     <div class="item-price">12 000 / 20 000</div>
@@ -686,7 +840,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="iced latte macchiato айс латте">
                 <div class="item-header">
                     <div class="item-name">Iced Latte Macchiato</div>
                     <div class="item-price">20 000 / 25 000</div>
@@ -694,7 +848,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="iced cappuccino айс капучино">
                 <div class="item-header">
                     <div class="item-name">Iced Cappuccino</div>
                     <div class="item-price">20 000 / 25 000</div>
@@ -702,7 +856,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="cold brew колд брю">
                 <div class="item-header">
                     <div class="item-name">Cold Brew</div>
                     <div class="item-price">18 000 / 21 000</div>
@@ -710,7 +864,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="iced caffelatte айс кофе латте">
                 <div class="item-header">
                     <div class="item-name">Iced Caffelatte</div>
                     <div class="item-price">20 000 / 25 000</div>
@@ -718,7 +872,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="cold brew mix колд брю микс">
                 <div class="item-header">
                     <div class="item-name">Cold Brew to MIX</div>
                     <div class="item-price">18 000 / 21 000</div>
@@ -726,7 +880,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="iced espresso айс эспрессо">
                 <div class="item-header">
                     <div class="item-name">Iced Espresso</div>
                     <div class="item-price">15 000 / 20 000</div>
@@ -734,7 +888,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="iced flat white айс флэт уайт">
                 <div class="item-header">
                     <div class="item-name">Iced Flat White</div>
                     <div class="item-price">22 000 / 28 000</div>
@@ -742,7 +896,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="cold brew cappuccino колд брю капучино">
                 <div class="item-header">
                     <div class="item-name">Cold Brew Cappuccino</div>
                     <div class="item-price">22 000 / 28 000</div>
@@ -750,7 +904,7 @@
                 <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
-            <div class="item-card">
+            <div class="item-card" data-search="cold brew latte колд брю латте">
                 <div class="item-header">
                     <div class="item-name">Cold Brew Latte</div>
                     <div class="item-price">24 000 / 30 000</div>
@@ -759,79 +913,79 @@
             </div>
         </div>
 
-        <!-- Добавки (без мороженого) -->
+        <!-- Добавки -->
         <div id="toppings" class="tab-content">
             <div class="section-header">
-                <div class="section-label" style="color: #10b981;">Сладкие</div>
-                <div class="section-name">Добавки</div>
+                <div class="section-label" style="color: #10b981;" data-i18n="sweet">Сладкие</div>
+                <div class="section-name" data-i18n="toppings_title">Добавки</div>
             </div>
             
             <div class="topping-grid">
-                <div class="topping-card">
-                    <div class="topping-name">Мёд натуральный</div>
+                <div class="topping-card" data-search="мёд honey мед">
+                    <div class="topping-name" data-i18n="honey">Мёд натуральный</div>
                     <div class="topping-price">+5 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Шоколадная паста</div>
+                <div class="topping-card" data-search="шоколадная паста chocolate paste">
+                    <div class="topping-name" data-i18n="choco_paste">Шоколадная паста</div>
                     <div class="topping-price">+7 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Сгущёнка</div>
+                <div class="topping-card" data-search="сгущёнка condensed milk">
+                    <div class="topping-name" data-i18n="condensed">Сгущёнка</div>
                     <div class="topping-price">+5 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Сметана</div>
+                <div class="topping-card" data-search="сметана sour cream">
+                    <div class="topping-name" data-i18n="sour_cream">Сметана</div>
                     <div class="topping-price">+4 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Варенье малиновое</div>
+                <div class="topping-card" data-search="варенье малиновое raspberry jam">
+                    <div class="topping-name" data-i18n="raspberry_jam">Варенье малиновое</div>
                     <div class="topping-price">+6 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Масло сливочное</div>
+                <div class="topping-card" data-search="масло сливочное butter">
+                    <div class="topping-name" data-i18n="butter">Масло сливочное</div>
                     <div class="topping-price">+3 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Банан свежий</div>
+                <div class="topping-card" data-search="банан свежий fresh banana">
+                    <div class="topping-name" data-i18n="fresh_banana">Банан свежий</div>
                     <div class="topping-price">+6 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Ягодный микс</div>
+                <div class="topping-card" data-search="ягодный микс berry mix">
+                    <div class="topping-name" data-i18n="berry_mix">Ягодный микс</div>
                     <div class="topping-price">+9 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Грецкие орехи</div>
+                <div class="topping-card" data-search="грецкие орехи walnuts">
+                    <div class="topping-name" data-i18n="walnuts">Грецкие орехи</div>
                     <div class="topping-price">+7 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Карамельный соус</div>
+                <div class="topping-card" data-search="карамельный соус caramel sauce">
+                    <div class="topping-name" data-i18n="caramel">Карамельный соус</div>
                     <div class="topping-price">+6 000</div>
                 </div>
                 
-                <div class="topping-card">
-                    <div class="topping-name">Творог с изюмом</div>
+                <div class="topping-card" data-search="творог изюм cottage cheese raisins">
+                    <div class="topping-name" data-i18n="cottage_cheese">Творог с изюмом</div>
                     <div class="topping-price">+8 000</div>
                 </div>
             </div>
             
-            <p style="text-align: center; color: #bbb; font-size: 12px; margin-top: 20px; padding: 0 20px;">
+            <p style="text-align: center; color: #bbb; font-size: 12px; margin-top: 20px; padding: 0 20px;" data-i18n="toppings_note">
                 Можно выбрать несколько добавок к одному заказу
             </p>
         </div>
 
         <!-- QR Section -->
         <div class="qr-section" id="qr">
-            <div class="qr-title">Поделиться меню</div>
-            <div class="qr-subtitle">Отсканируйте, чтобы открыть на своём телефоне</div>
+            <div class="qr-title" data-i18n="share_menu">Поделиться меню</div>
+            <div class="qr-subtitle" data-i18n="scan_qr">Отсканируйте, чтобы открыть на своём телефоне</div>
             
             <div class="qr-box">
                 <div id="qrcode"></div>
@@ -843,29 +997,48 @@
 
     </main>
 
+    <!-- Contact Buttons -->
+    <div class="contact-buttons">
+        <a href="https://t.me/doza_coffee" class="contact-btn telegram" target="_blank" title="Telegram">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+        </a>
+        <a href="https://wa.me/998901234567" class="contact-btn whatsapp" target="_blank" title="WhatsApp">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+        </a>
+        <a href="tel:+998901234567" class="contact-btn phone" title="Позвонить">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+        </a>
+    </div>
+
     <nav class="bottom-nav">
-        <a href="#home" class="nav-item active" onclick="setActive(this)">
+        <button class="nav-item active" onclick="scrollToSection('home', this)">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
-            <span>Главная</span>
-        </a>
-        <a href="#blini" class="nav-item" onclick="setActive(this)">
+            <span data-i18n="nav_home">Главная</span>
+        </button>
+        <button class="nav-item" onclick="scrollToSection('blini', this)">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="M12 6v6l4 2"></path>
             </svg>
-            <span>Блины</span>
-        </a>
-        <a href="#coffee" class="nav-item" onclick="setActive(this)">
+            <span data-i18n="nav_blini">Блины</span>
+        </button>
+        <button class="nav-item" onclick="scrollToSection('coffee', this)">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
                 <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
             </svg>
-            <span>Кофе</span>
-        </a>
-        <a href="#qr" class="nav-item" onclick="setActive(this)">
+            <span data-i18n="nav_coffee">Кофе</span>
+        </button>
+        <button class="nav-item" onclick="scrollToSection('qr', this)">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="3" width="7" height="7"></rect>
                 <rect x="14" y="3" width="7" height="7"></rect>
@@ -873,54 +1046,422 @@
                 <rect x="3" y="14" width="7" height="7"></rect>
             </svg>
             <span>QR</span>
-        </a>
+        </button>
     </nav>
 
     <script>
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+        // Translations
+        const translations = {
+            ru: {
+                open: "Open",
+                subtitle: "Кофе и блинчики",
+                tab_blini: "Блинчики",
+                tab_coffee: "Кофе",
+                tab_toppings: "Добавки",
+                search_placeholder: "Поиск...",
+                section_blini: "Блинчики",
+                classic: "Классические",
+                blini_classic: "Блинчики Классик",
+                desc_classic: "С мёдом или шоколадом, с декором",
+                blini_cocoa: "Блинчик с Какао",
+                desc_cocoa: "С мёдом или шоколадом, с декором",
+                filling_classic: "Начинка Классик",
+                desc_filling_classic: "Молоко, шоколад",
+                filling_berry: "Начинка Ягодная",
+                desc_filling_berry: "Ягоды, мёд",
+                filling_banana_choco: "Начинка Банан-Шоколад",
+                desc_banana_choco: "Банан и шоколад",
+                filling_strawberry_choco: "Начинка Клубника-Шоколад",
+                desc_strawberry_choco: "Клубника и шоколад",
+                filling_mix: "Начинка Микс",
+                desc_mix: "Банан, клубника и шоколад",
+                filling_yogurt: "Начинка Йогуртовая",
+                desc_yogurt: "Банан, ягоды, йогурт",
+                rafaello: "Рафаэлло",
+                desc_rafaello: "Кокосовые стружки, молоко",
+                spaghetti: "Спагетти из блинчиков",
+                desc_spaghetti: "Шоколад и фрукты",
+                section_rolls: "Роллы",
+                blini_rolls: "Блинчики Роллы",
+                roll_classic: "Ролл Классический",
+                desc_roll_classic: "Свёрнутый блин, нарезанный на порции",
+                size_6_200: "6 кусочков • 200г",
+                roll_double: "Ролл Двойной",
+                desc_roll_double: "Два блина в одном рулете",
+                size_8_280: "8 кусочков • 280г",
+                roll_maxi: "Ролл Макси",
+                desc_roll_maxi: "Увеличенный рулет для компании",
+                size_10_350: "10 кусочков • 350г",
+                section_macarons: "Макароны",
+                blini_macarons: "Блинчики Макароны",
+                set_mini: "Набор Мини",
+                desc_set_mini: "5 мини-блинчиков без начинки",
+                size_5_150: "5 шт. • 150г",
+                set_standard: "Набор Стандарт",
+                desc_set_standard: "8 мини-блинчиков",
+                size_8_240: "8 шт. • 240г",
+                set_maxi: "Набор Макси",
+                desc_set_maxi: "12 мини-блинчиков для компании",
+                size_12_360: "12 шт. • 360г",
+                section_hot_coffee: "Горячий кофе",
+                coffee_art: "Кофе с рисунком",
+                desc_coffee_art: "Латте-арт с вашим изображением",
+                section_iced_coffee: "Холодный кофе",
+                sweet: "Сладкие",
+                toppings_title: "Добавки",
+                honey: "Мёд натуральный",
+                choco_paste: "Шоколадная паста",
+                condensed: "Сгущёнка",
+                sour_cream: "Сметана",
+                raspberry_jam: "Варенье малиновое",
+                butter: "Масло сливочное",
+                fresh_banana: "Банан свежий",
+                berry_mix: "Ягодный микс",
+                walnuts: "Грецкие орехи",
+                caramel: "Карамельный соус",
+                cottage_cheese: "Творог с изюмом",
+                toppings_note: "Можно выбрать несколько добавок к одному заказу",
+                share_menu: "Поделиться меню",
+                scan_qr: "Отсканируйте, чтобы открыть на своём телефоне",
+                nav_home: "Главная",
+                nav_blini: "Блины",
+                nav_coffee: "Кофе",
+                soon: "Скоро..."
+            },
+            en: {
+                open: "Open",
+                subtitle: "Coffee & Pancakes",
+                tab_blini: "Pancakes",
+                tab_coffee: "Coffee",
+                tab_toppings: "Toppings",
+                search_placeholder: "Search...",
+                section_blini: "Pancakes",
+                classic: "Classic",
+                blini_classic: "Classic Pancakes",
+                desc_classic: "With honey or chocolate, decorated",
+                blini_cocoa: "Cocoa Pancake",
+                desc_cocoa: "With honey or chocolate, decorated",
+                filling_classic: "Classic Filling",
+                desc_filling_classic: "Milk, chocolate",
+                filling_berry: "Berry Filling",
+                desc_filling_berry: "Berries, honey",
+                filling_banana_choco: "Banana-Chocolate Filling",
+                desc_banana_choco: "Banana and chocolate",
+                filling_strawberry_choco: "Strawberry-Chocolate Filling",
+                desc_strawberry_choco: "Strawberry and chocolate",
+                filling_mix: "Mix Filling",
+                desc_mix: "Banana, strawberry and chocolate",
+                filling_yogurt: "Yogurt Filling",
+                desc_yogurt: "Banana, berries, yogurt",
+                rafaello: "Raffaello",
+                desc_rafaello: "Coconut flakes, milk",
+                spaghetti: "Pancake Spaghetti",
+                desc_spaghetti: "Chocolate and fruits",
+                section_rolls: "Rolls",
+                blini_rolls: "Pancake Rolls",
+                roll_classic: "Classic Roll",
+                desc_roll_classic: "Rolled pancake cut into portions",
+                size_6_200: "6 pieces • 200g",
+                roll_double: "Double Roll",
+                desc_roll_double: "Two pancakes in one roll",
+                size_8_280: "8 pieces • 280g",
+                roll_maxi: "Maxi Roll",
+                desc_roll_maxi: "Enlarged roll for company",
+                size_10_350: "10 pieces • 350g",
+                section_macarons: "Macarons",
+                blini_macarons: "Pancake Macarons",
+                set_mini: "Mini Set",
+                desc_set_mini: "5 mini pancakes without filling",
+                size_5_150: "5 pcs. • 150g",
+                set_standard: "Standard Set",
+                desc_set_standard: "8 mini pancakes",
+                size_8_240: "8 pcs. • 240g",
+                set_maxi: "Maxi Set",
+                desc_set_maxi: "12 mini pancakes for company",
+                size_12_360: "12 pcs. • 360g",
+                section_hot_coffee: "Hot Coffee",
+                coffee_art: "Coffee with Art",
+                desc_coffee_art: "Latte art with your image",
+                section_iced_coffee: "Iced Coffee",
+                sweet: "Sweet",
+                toppings_title: "Toppings",
+                honey: "Natural Honey",
+                choco_paste: "Chocolate Paste",
+                condensed: "Condensed Milk",
+                sour_cream: "Sour Cream",
+                raspberry_jam: "Raspberry Jam",
+                butter: "Butter",
+                fresh_banana: "Fresh Banana",
+                berry_mix: "Berry Mix",
+                walnuts: "Walnuts",
+                caramel: "Caramel Sauce",
+                cottage_cheese: "Cottage Cheese with Raisins",
+                toppings_note: "You can choose multiple toppings for one order",
+                share_menu: "Share Menu",
+                scan_qr: "Scan to open on your phone",
+                nav_home: "Home",
+                nav_blini: "Pancakes",
+                nav_coffee: "Coffee",
+                soon: "Soon..."
+            },
+            uz: {
+                open: "Ochiq",
+                subtitle: "Kofe va Blinchiklar",
+                tab_blini: "Blinchiklar",
+                tab_coffee: "Kofe",
+                tab_toppings: "Qo'shimchalar",
+                search_placeholder: "Qidirish...",
+                section_blini: "Blinchiklar",
+                classic: "Klassik",
+                blini_classic: "Klassik Blinchiklar",
+                desc_classic: "Asal yoki shokolad bilan, bezatilgan",
+                blini_cocoa: "Kakao Blinchik",
+                desc_cocoa: "Asal yoki shokolad bilan, bezatilgan",
+                filling_classic: "Klassik Nacha",
+                desc_filling_classic: "Sut, shokolad",
+                filling_berry: "Mevali Nacha",
+                desc_filling_berry: "Mevalar, asal",
+                filling_banana_choco: "Banan-Shokolad Nacha",
+                desc_banana_choco: "Banan va shokolad",
+                filling_strawberry_choco: "Qulupnay-Shokolad Nacha",
+                desc_strawberry_choco: "Qulupnay va shokolad",
+                filling_mix: "Aralash Nacha",
+                desc_mix: "Banan, qulupnay va shokolad",
+                filling_yogurt: "Yogurtli Nacha",
+                desc_yogurt: "Banan, mevalar, yogurt",
+                rafaello: "Raffaello",
+                desc_rafaello: "Kokos chipslari, sut",
+                spaghetti: "Blinchik Spagetti",
+                desc_spaghetti: "Shokolad va mevalar",
+                section_rolls: "Rollar",
+                blini_rolls: "Blinchik Rollari",
+                roll_classic: "Klassik Roll",
+                desc_roll_classic: "Oralgan blin, bo'laklarga kesilgan",
+                size_6_200: "6 ta • 200g",
+                roll_double: "Ikki qavatli Roll",
+                desc_roll_double: "Bitta rollda ikki blin",
+                size_8_280: "8 ta • 280g",
+                roll_maxi: "Maxi Roll",
+                desc_roll_maxi: "Katta roll kompaniya uchun",
+                size_10_350: "10 ta • 350g",
+                section_macarons: "Makaronlar",
+                blini_macarons: "Blinchik Makaronlari",
+                set_mini: "Mini To'plam",
+                desc_set_mini: "Nachasiz 5 ta mini blinchik",
+                size_5_150: "5 ta • 150g",
+                set_standard: "Standart To'plam",
+                desc_set_standard: "8 ta mini blinchik",
+                size_8_240: "8 ta • 240g",
+                set_maxi: "Maxi To'plam",
+                desc_set_maxi: "Kompaniya uchun 12 ta mini blinchik",
+                size_12_360: "12 ta • 360g",
+                section_hot_coffee: "Issiq Kofe",
+                coffee_art: "Rasmli Kofe",
+                desc_coffee_art: "Sizning rasmingiz bilan latte art",
+                section_iced_coffee: "Sovuq Kofe",
+                sweet: "Shirin",
+                toppings_title: "Qo'shimchalar",
+                honey: "Tabiiy Asal",
+                choco_paste: "Shokolad Pastasi",
+                condensed: "Qaymoq",
+                sour_cream: "Smetana",
+                raspberry_jam: "Malina Murabboyi",
+                butter: "Saryog'",
+                fresh_banana: "Yangi Banan",
+                berry_mix: "Mevalar Aralashmasi",
+                walnuts: "Yong'oq",
+                caramel: "Karamel Sousi",
+                cottage_cheese: "Tvorog va Mayiz",
+                toppings_note: "Bitta buyurtma uchun bir nechta qo'shimcha tanlash mumkin",
+                share_menu: "Menyu Ulashish",
+                scan_qr: "Telefoningizda ochish uchun skanerlang",
+                nav_home: "Bosh sahifa",
+                nav_blini: "Blinchiklar",
+                nav_coffee: "Kofe",
+                soon: "Tez orada..."
+            }
+        };
+
+        let currentLang = localStorage.getItem('doza-lang') || 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('doza-lang', lang);
             
-            document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-        
-        function setActive(el) {
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
-        }
-        
-        const currentUrl = window.location.href.split('?')[0].split('#')[0];
-        document.getElementById('qrUrl').textContent = currentUrl.replace('https://', '').replace('http://', '');
-        
-        new QRCode(document.getElementById('qrcode'), {
-            text: currentUrl,
-            width: 160,
-            height: 160,
-            colorDark: '#0a0a0a',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.H
-        });
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    document.querySelectorAll('.nav-item').forEach(nav => {
-                        nav.classList.remove('active');
-                        if (nav.getAttribute('href') === '#' + id) {
-                            nav.classList.add('active');
-                        }
-                    });
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) btn.classList.add('active');
+            });
+            
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
                 }
             });
-        }, { threshold: 0.3 });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+
+        function switchTab(tabId, btn) {
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            setTimeout(() => {
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(t => {
+                    t.classList.remove('active');
+                    t.style.display = 'none';
+                });
+                
+                // Show selected tab
+                const selectedTab = document.getElementById(tabId);
+                selectedTab.classList.add('active');
+                selectedTab.style.display = 'block';
+                
+                // Update tab buttons
+                document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Clear search
+                document.getElementById('searchInput').value = '';
+                document.querySelectorAll('.hidden-item').forEach(item => {
+                    item.classList.remove('hidden-item');
+                });
+                const noResults = selectedTab.querySelector('.no-results');
+                if (noResults) noResults.remove();
+                
+                // Re-trigger animations
+                const items = selectedTab.querySelectorAll('.item-card, .topping-card');
+                items.forEach((item, index) => {
+                    item.style.animation = 'none';
+                    item.offsetHeight; // Trigger reflow
+                    item.style.animation = `fadeInUp 0.5s forwards ${index * 0.05}s`;
+                });
+            }, 100);
+        }
         
-        ['home', 'blini', 'coffee', 'toppings', 'qr'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
+        function scrollToSection(sectionId, btn) {
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // If it's home, scroll to top
+            if (sectionId === 'home') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+            
+            // If it's a tab section, switch to that tab first
+            if (['blini', 'coffee', 'toppings'].includes(sectionId)) {
+                const tabBtn = document.querySelector(`.category-tab[onclick*="${sectionId}"]`);
+                if (tabBtn) {
+                    switchTab(sectionId, tabBtn);
+                }
+            }
+            
+            // Scroll to section
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function searchItems(query) {
+            const searchTerm = query.toLowerCase();
+            const activeTab = document.querySelector('.tab-content.active');
+            if (!activeTab) return;
+            
+            const items = activeTab.querySelectorAll('.item-card, .topping-card');
+            let hasResults = false;
+            
+            items.forEach(item => {
+                const searchData = (item.dataset.search || '').toLowerCase();
+                const text = item.textContent.toLowerCase();
+                
+                if (searchData.includes(searchTerm) || text.includes(searchTerm)) {
+                    item.classList.remove('hidden-item');
+                    hasResults = true;
+                } else {
+                    item.classList.add('hidden-item');
+                }
+            });
+            
+            // Show/hide no results message
+            let noResults = activeTab.querySelector('.no-results');
+            if (!hasResults) {
+                if (!noResults) {
+                    noResults = document.createElement('div ');
+noResults.className = 'no-results';
+noResults.textContent = currentLang === 'ru' ? 'Ничего не найдено' :
+currentLang === 'en' ? 'Nothing found' : 'Hech narsa topilmadi';
+activeTab.appendChild(noResults);
+}
+noResults.style.display = 'block';
+} else if (noResults) {
+noResults.style.display = 'none';
+}
+}
+    // Initialize QR code
+    const currentUrl = window.location.href.split('?')[0].split('#')[0];
+    document.getElementById('qrUrl').textContent = currentUrl.replace('https://', '').replace('http://', '');
+    
+    new QRCode(document.getElementById('qrcode'), {
+        text: currentUrl,
+        width: 160,
+        height: 160,
+        colorDark: '#0a0a0a',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+    
+    // Intersection Observer for nav highlighting
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                    // Check if nav item has onclick with this id
+                    const onclick = nav.getAttribute('onclick');
+                    if (onclick && onclick.includes(id)) {
+                        nav.classList.add('active');
+                    }
+                });
+            }
         });
-    </script>
+    }, { threshold: 0.3 });
+    
+    ['home', 'blini', 'coffee', 'toppings', 'qr'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+    });
+    
+    // Initialize language on load
+    setLanguage(currentLang);
+    
+    // Animate items on initial load
+    document.querySelectorAll('.tab-content.active .item-card, .tab-content.active .topping-card').forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`;
+    });
+</script>
 
 </body>
 </html>
