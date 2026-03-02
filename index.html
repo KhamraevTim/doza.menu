@@ -31,6 +31,27 @@
             width: 0px;
         }
         
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+        
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.5) 50%, rgba(10,10,10,0.7) 100%);
+            z-index: -1;
+        }
+        
         .grain {
             position: fixed;
             top: 0;
@@ -39,15 +60,15 @@
             height: 100%;
             pointer-events: none;
             z-index: 9998;
-            opacity: 0.04;
+            opacity: 0.02;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
         .bg-blob {
             position: fixed;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
+            filter: blur(80px);
+            opacity: 0.15;
             z-index: -1;
             animation: float 15s infinite ease-in-out;
         }
@@ -75,8 +96,8 @@
         }
         
         .mobile-header {
-            backdrop-filter: blur(20px);
-            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.6);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -95,11 +116,13 @@
             font-weight: 800;
             letter-spacing: -4px;
             margin-bottom: 8px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
         }
         
         .hero-subtitle {
-            color: #666;
+            color: #ccc;
             font-size: 14px;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.5);
         }
         
         .category-tabs {
@@ -110,7 +133,7 @@
             margin: 0 -20px;
             position: sticky;
             top: 70px;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(10, 10, 10, 0.6);
             backdrop-filter: blur(10px);
             z-index: 50;
         }
@@ -123,13 +146,14 @@
             flex-shrink: 0;
             padding: 12px 20px;
             border-radius: 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
             font-size: 13px;
             font-weight: 500;
             white-space: nowrap;
             transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
         
         .category-tab.active {
@@ -149,55 +173,71 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 8px;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
         }
         
         .section-name {
             font-family: 'Syne', sans-serif;
             font-size: 26px;
             font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .item-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 20px;
             margin: 0 20px 12px;
+            backdrop-filter: blur(8px);
         }
         
         .item-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
+            align-items: center;
+            margin-bottom: 4px;
         }
         
         .item-name {
             font-size: 17px;
             font-weight: 600;
             flex: 1;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         
         .item-price {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #ff6b35;
             margin-left: 12px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .item-price.soon {
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .item-ml {
+            color: #bbb;
+            font-size: 13px;
+            margin-bottom: 8px;
         }
         
         .item-desc {
-            color: #888;
+            color: #ddd;
             font-size: 14px;
             line-height: 1.5;
         }
         
         .item-sizes {
-            color: #666;
+            color: #999;
             font-size: 12px;
             margin-top: 6px;
         }
         
-        /* Toppings */
         .topping-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -206,17 +246,19 @@
         }
         
         .topping-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             padding: 16px;
             text-align: center;
+            backdrop-filter: blur(8px);
         }
         
         .topping-name {
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 4px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         
         .topping-price {
@@ -225,12 +267,11 @@
             font-weight: 700;
         }
         
-        /* QR Section */
         .qr-section {
             margin-top: 60px;
             padding: 60px 20px;
-            background: linear-gradient(180deg, rgba(255,107,53,0.1) 0%, rgba(10,10,10,1) 100%);
-            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            background: linear-gradient(180deg, rgba(255,107,53,0.2) 0%, rgba(10,10,10,0.8) 100%);
+            border-top: 1px solid rgba(255, 107, 53, 0.3);
             text-align: center;
         }
         
@@ -239,10 +280,11 @@
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .qr-subtitle {
-            color: #666;
+            color: #bbb;
             font-size: 13px;
             margin-bottom: 30px;
         }
@@ -281,7 +323,7 @@
         }
         
         .qr-url {
-            color: #666;
+            color: #aaa;
             font-size: 12px;
             margin-bottom: 20px;
         }
@@ -291,8 +333,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 20px 24px;
             z-index: 1000;
@@ -306,7 +348,7 @@
             flex-direction: column;
             align-items: center;
             gap: 4px;
-            color: #666;
+            color: #aaa;
             text-decoration: none;
             font-size: 10px;
             transition: color 0.3s;
@@ -337,6 +379,10 @@
 </head>
 <body>
 
+    <!-- Background Image -->
+    <img src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=1920&auto=format&fit=crop" class="bg-image" alt="background">
+    <div class="bg-overlay"></div>
+    
     <div class="grain"></div>
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
@@ -344,7 +390,7 @@
     <header class="mobile-header fixed top-0 left-0 right-0 z-50 px-5 py-4 flex justify-between items-center">
         <div class="font-syne text-3xl font-bold tracking-tighter">DOZA</div>
         <div class="text-right">
-            <div class="text-[10px] text-gray-500 uppercase tracking-widest">Open</div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-widest">Open</div>
             <div class="text-xs font-bold">08:00 — 22:00</div>
         </div>
     </header>
@@ -356,17 +402,15 @@
 
     <main class="main-content">
 
-        <!-- Tabs -->
         <div class="category-tabs">
             <button class="category-tab active" onclick="switchTab('blini', this)">Блинчики</button>
             <button class="category-tab" onclick="switchTab('coffee', this)">Кофе</button>
             <button class="category-tab" onclick="switchTab('toppings', this)">Добавки</button>
         </div>
 
-        <!-- Блинчики (первые по умолчанию) -->
+        <!-- Блинчики -->
         <div id="blini" class="tab-content active">
             
-            <!-- Обычные блинчики -->
             <div class="section-header">
                 <div class="section-label">Блинчики</div>
                 <div class="section-name">Классические</div>
@@ -393,7 +437,7 @@
                     <div class="item-name">Начинка Классик</div>
                     <div class="item-price">32 000</div>
                 </div>
-                <div class="item-desc">Молоко, творог, шоколад</div>
+                <div class="item-desc">Молоко, шоколад</div>
             </div>
             
             <div class="item-card">
@@ -401,7 +445,7 @@
                     <div class="item-name">Начинка Ягодная</div>
                     <div class="item-price">35 000</div>
                 </div>
-                <div class="item-desc">Ягоды, творог, мёд</div>
+                <div class="item-desc">Ягоды, мёд</div>
             </div>
             
             <div class="item-card">
@@ -415,7 +459,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Начинка Клубника-Шоколад</div>
-                    <div class="item-price">38 000</div>
+                    <div class="item-price">35 000</div>
                 </div>
                 <div class="item-desc">Клубника и шоколад</div>
             </div>
@@ -423,7 +467,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Начинка Микс</div>
-                    <div class="item-price">42 000</div>
+                    <div class="item-price">35 000</div>
                 </div>
                 <div class="item-desc">Банан, клубника и шоколад</div>
             </div>
@@ -439,9 +483,9 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Рафаэлло</div>
-                    <div class="item-price">38 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
-                <div class="item-desc">Творог, кокосовые стружки, молоко</div>
+                <div class="item-desc">Кокосовые стружки, молоко</div>
             </div>
             
             <div class="item-card">
@@ -452,7 +496,6 @@
                 <div class="item-desc">Шоколад и фрукты</div>
             </div>
 
-            <!-- Блинчики Роллы -->
             <div class="section-header" style="margin-top: 40px;">
                 <div class="section-label" style="color: #f7931e;">Роллы</div>
                 <div class="section-name">Блинчики Роллы</div>
@@ -461,7 +504,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Ролл Классический</div>
-                    <div class="item-price">30 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
                 <div class="item-desc">Свёрнутый блин, нарезанный на порции</div>
                 <div class="item-sizes">6 кусочков • 200г</div>
@@ -470,7 +513,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Ролл Двойной</div>
-                    <div class="item-price">40 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
                 <div class="item-desc">Два блина в одном рулете</div>
                 <div class="item-sizes">8 кусочков • 280г</div>
@@ -479,13 +522,12 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Ролл Макси</div>
-                    <div class="item-price">50 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
                 <div class="item-desc">Увеличенный рулет для компании</div>
                 <div class="item-sizes">10 кусочков • 350г</div>
             </div>
 
-            <!-- Блинчики Макароны -->
             <div class="section-header" style="margin-top: 40px;">
                 <div class="section-label" style="color: #8b5cf6;">Макароны</div>
                 <div class="section-name">Блинчики Макароны</div>
@@ -494,7 +536,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Набор Мини</div>
-                    <div class="item-price">25 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
                 <div class="item-desc">5 мини-блинчиков без начинки</div>
                 <div class="item-sizes">5 шт. • 150г</div>
@@ -503,7 +545,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Набор Стандарт</div>
-                    <div class="item-price">35 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
                 <div class="item-desc">8 мини-блинчиков</div>
                 <div class="item-sizes">8 шт. • 240г</div>
@@ -512,7 +554,7 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Набор Макси</div>
-                    <div class="item-price">50 000</div>
+                    <div class="item-price soon">Скоро...</div>
                 </div>
                 <div class="item-desc">12 мини-блинчиков для компании</div>
                 <div class="item-sizes">12 шт. • 360г</div>
@@ -529,97 +571,106 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Espresso</div>
-                    <div class="item-price">18 000</div>
+                    <div class="item-price">12 000 / 18 000</div>
                 </div>
-                <div class="item-sizes">30мл / 60мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Americano</div>
-                    <div class="item-price">20 000</div>
+                    <div class="item-price">12 000 / 20 000</div>
                 </div>
-                <div class="item-sizes">30мл / 60мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Cappuccino / Mix</div>
-                    <div class="item-price">18 000</div>
+                    <div class="item-price">15 000 / 18 000</div>
                 </div>
-                <div class="item-sizes">50мл / 85мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Flat White</div>
-                    <div class="item-price">22 000</div>
+                    <div class="item-price">15 000 / 22 000</div>
                 </div>
-                <div class="item-sizes">75мл / 95мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Latte Macchiato</div>
-                    <div class="item-price">22 000</div>
+                    <div class="item-price">18 000 / 22 000</div>
                 </div>
-                <div class="item-sizes">55мл / 95мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Caffelatte</div>
-                    <div class="item-price">18 000</div>
+                    <div class="item-price">15 000 / 18 000</div>
                 </div>
-                <div class="item-sizes">55мл / 95мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">2x Espresso</div>
-                    <div class="item-price">24 000</div>
+                    <div class="item-price">12 000 / 24 000</div>
                 </div>
-                <div class="item-sizes">60мл / 120мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Long</div>
-                    <div class="item-price">18 000</div>
+                    <div class="item-price">12 000 / 18 000</div>
                 </div>
-                <div class="item-sizes">30мл / 60мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Cortado</div>
-                    <div class="item-price">22 000</div>
+                    <div class="item-price">12 000 / 22 000</div>
                 </div>
-                <div class="item-sizes">40мл / 80мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Espresso SOUL</div>
-                    <div class="item-price">21 000</div>
+                    <div class="item-price">12 000 / 21 000</div>
                 </div>
-                <div class="item-sizes">35мл / 70мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Doppio+</div>
-                    <div class="item-price">23 000</div>
+                    <div class="item-price">15 000 / 23 000</div>
                 </div>
-                <div class="item-sizes">60мл / 70мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Espresso Macchiato</div>
-                    <div class="item-price">21 000</div>
+                    <div class="item-price">12 000 / 21 000</div>
                 </div>
-                <div class="item-sizes">35мл / 70мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
+            </div>
+
+            <!-- Новый вид кофе -->
+            <div class="item-card" style="border-color: #ff6b35; background: rgba(255,107,53,0.1);">
+                <div class="item-header">
+                    <div class="item-name">Кофе с рисунком</div>
+                    <div class="item-price">40 000</div>
+                </div>
+                <div class="item-desc">Латте-арт с вашим изображением</div>
             </div>
 
             <div class="section-header" style="margin-top: 40px;">
@@ -630,85 +681,85 @@
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Iced Americano</div>
-                    <div class="item-price">20 000</div>
+                    <div class="item-price">12 000 / 20 000</div>
                 </div>
-                <div class="item-sizes">30мл / 60мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Iced Latte Macchiato</div>
-                    <div class="item-price">25 000</div>
+                    <div class="item-price">20 000 / 25 000</div>
                 </div>
-                <div class="item-sizes">55мл / 95мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Iced Cappuccino</div>
-                    <div class="item-price">25 000</div>
+                    <div class="item-price">20 000 / 25 000</div>
                 </div>
-                <div class="item-sizes">45мл / 85мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Cold Brew</div>
-                    <div class="item-price">21 000</div>
+                    <div class="item-price">18 000 / 21 000</div>
                 </div>
-                <div class="item-sizes">60мл / 75мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Iced Caffelatte</div>
-                    <div class="item-price">25 000</div>
+                    <div class="item-price">20 000 / 25 000</div>
                 </div>
-                <div class="item-sizes">55мл / 95мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Cold Brew to MIX</div>
-                    <div class="item-price">21 000</div>
+                    <div class="item-price">18 000 / 21 000</div>
                 </div>
-                <div class="item-sizes">60мл / 70мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Iced Espresso</div>
-                    <div class="item-price">20 000</div>
+                    <div class="item-price">15 000 / 20 000</div>
                 </div>
-                <div class="item-sizes">30мл / 60мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Iced Flat White</div>
-                    <div class="item-price">28 000</div>
+                    <div class="item-price">22 000 / 28 000</div>
                 </div>
-                <div class="item-sizes">80мл / 100мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Cold Brew Cappuccino</div>
-                    <div class="item-price">28 000</div>
+                    <div class="item-price">22 000 / 28 000</div>
                 </div>
-                <div class="item-sizes">80мл / 100мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
             
             <div class="item-card">
                 <div class="item-header">
                     <div class="item-name">Cold Brew Latte</div>
-                    <div class="item-price">30 000</div>
+                    <div class="item-price">24 000 / 30 000</div>
                 </div>
-                <div class="item-sizes">90мл / 120мл</div>
+                <div class="item-ml">350 мл / 450 мл</div>
             </div>
         </div>
 
-        <!-- Добавки -->
+        <!-- Добавки (без мороженого) -->
         <div id="toppings" class="tab-content">
             <div class="section-header">
                 <div class="section-label" style="color: #10b981;">Сладкие</div>
@@ -762,11 +813,6 @@
                 </div>
                 
                 <div class="topping-card">
-                    <div class="topping-name">Мороженое</div>
-                    <div class="topping-price">+8 000</div>
-                </div>
-                
-                <div class="topping-card">
                     <div class="topping-name">Карамельный соус</div>
                     <div class="topping-price">+6 000</div>
                 </div>
@@ -777,7 +823,7 @@
                 </div>
             </div>
             
-            <p style="text-align: center; color: #666; font-size: 12px; margin-top: 20px; padding: 0 20px;">
+            <p style="text-align: center; color: #bbb; font-size: 12px; margin-top: 20px; padding: 0 20px;">
                 Можно выбрать несколько добавок к одному заказу
             </p>
         </div>
@@ -844,7 +890,6 @@
             el.classList.add('active');
         }
         
-        // Generate QR
         const currentUrl = window.location.href.split('?')[0].split('#')[0];
         document.getElementById('qrUrl').textContent = currentUrl.replace('https://', '').replace('http://', '');
         
@@ -857,7 +902,6 @@
             correctLevel: QRCode.CorrectLevel.H
         });
         
-        // Scroll spy
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
