@@ -461,8 +461,8 @@
             color: white;
         }
         
-        .contact-btn.whatsapp {
-            background: #25d366;
+        .contact-btn.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: white;
         }
         
@@ -541,7 +541,7 @@
         <div class="font-syne text-3xl font-bold tracking-tighter">DOZA</div>
         <div class="text-right">
             <div class="text-[10px] text-gray-400 uppercase tracking-widest" data-i18n="open">Open</div>
-            <div class="text-xs font-bold">08:00 — 22:00</div>
+            <div class="text-xs font-bold">09:00 — 22:00</div>
         </div>
     </header>
 
@@ -555,6 +555,7 @@
         <div class="category-tabs">
             <button class="category-tab active" onclick="switchTab('blini', this)" data-i18n="tab_blini">Блинчики</button>
             <button class="category-tab" onclick="switchTab('coffee', this)" data-i18n="tab_coffee">Кофе</button>
+            <button class="category-tab" onclick="switchTab('tea', this)" data-i18n="tab_tea">Чаи</button>
             <button class="category-tab" onclick="switchTab('toppings', this)" data-i18n="tab_toppings">Добавки</button>
         </div>
 
@@ -633,6 +634,22 @@
                     <div class="item-price">40 000</div>
                 </div>
                 <div class="item-desc" data-i18n="desc_yogurt">Банан, ягоды, йогурт</div>
+            </div>
+            
+            <div class="item-card" data-search="творог ягоды cottage cheese berries">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="filling_cottage_berries">Блинчики с творогом и ягодами</div>
+                    <div class="item-price">35 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_cottage_berries">Творог и свежие ягоды</div>
+            </div>
+            
+            <div class="item-card" data-search="клубника банан шоколад strawberry banana chocolate">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="filling_strawberry_banana_choco">Клубника банан шоколад</div>
+                    <div class="item-price">35 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_strawberry_banana_choco">Клубника, банан и шоколад</div>
             </div>
             
             <div class="item-card" data-search="рафаэлло rafaello кокос">
@@ -913,6 +930,78 @@
             </div>
         </div>
 
+        <!-- Чаи -->
+        <div id="tea" class="tab-content">
+            <div class="section-header">
+                <div class="section-label" style="color: #10b981;" data-i18n="section_tea">Чайная карта</div>
+                <div class="section-name" data-i18n="tea_collection">Ароматные чаи</div>
+            </div>
+            
+            <div class="item-card" data-search="фирменный чай signature tea">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_signature">Фирменный чай</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_signature">Фирменный купаж от DOZA</div>
+            </div>
+            
+            <div class="item-card" data-search="мультифрукт multifruit фруктовый">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_multifruit">Мультифрукт чай</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_multifruit">Яркий фруктовый вкус</div>
+            </div>
+            
+            <div class="item-card" data-search="чёрный барбарис black tea barberry">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_barberry">Чёрный чай с барбарисом и фруктами</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_barberry">Барбарис и сушёные фрукты</div>
+            </div>
+            
+            <div class="item-card" data-search="мохито mojito mint мята">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_mojito">Чай мохито</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_mojito">Мята и лайм</div>
+            </div>
+            
+            <div class="item-card" data-search="зелёный чай green tea">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_green">Зелёный чай</div>
+                    <div class="item-price">10 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_green">Классический зелёный чай</div>
+            </div>
+            
+            <div class="item-card" data-search="ананасовый pineapple">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_pineapple">Ананасовый чай</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_pineapple">Тропический ананасовый вкус</div>
+            </div>
+            
+            <div class="item-card" data-search="жасмин jasmine">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_jasmine">Жасмин</div>
+                    <div class="item-price">20 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_jasmine">Нежный цветочный аромат</div>
+            </div>
+            
+            <div class="item-card" data-search="сюрприз surprise surprise tea">
+                <div class="item-header">
+                    <div class="item-name" data-i18n="tea_surprise">Чай сюрприз</div>
+                    <div class="item-price">25 000</div>
+                </div>
+                <div class="item-desc" data-i18n="desc_tea_surprise">Секретный рецепт от бариста</div>
+            </div>
+        </div>
+
         <!-- Добавки -->
         <div id="toppings" class="tab-content">
             <div class="section-header">
@@ -999,17 +1088,17 @@
 
     <!-- Contact Buttons -->
     <div class="contact-buttons">
-        <a href="https://t.me/doza_coffee" class="contact-btn telegram" target="_blank" title="Telegram">
+        <a href="https://t.me/Xudoyor_Qobiljonovich" class="contact-btn telegram" target="_blank" title="Telegram">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
             </svg>
         </a>
-        <a href="https://wa.me/998901234567" class="contact-btn whatsapp" target="_blank" title="WhatsApp">
+        <a href="https://www.instagram.com/doza_caffe?igsh=bTRqanhldzJveDQy" class="contact-btn instagram" target="_blank" title="Instagram">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
             </svg>
         </a>
-        <a href="tel:+998901234567" class="contact-btn phone" title="Позвонить">
+        <a href="tel:+998904604224" class="contact-btn phone" title="Позвонить">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
@@ -1057,6 +1146,7 @@
                 subtitle: "Кофе и блинчики",
                 tab_blini: "Блинчики",
                 tab_coffee: "Кофе",
+                tab_tea: "Чаи",
                 tab_toppings: "Добавки",
                 search_placeholder: "Поиск...",
                 section_blini: "Блинчики",
@@ -1077,6 +1167,10 @@
                 desc_mix: "Банан, клубника и шоколад",
                 filling_yogurt: "Начинка Йогуртовая",
                 desc_yogurt: "Банан, ягоды, йогурт",
+                filling_cottage_berries: "Блинчики с творогом и ягодами",
+                desc_cottage_berries: "Творог и свежие ягоды",
+                filling_strawberry_banana_choco: "Клубника банан шоколад",
+                desc_strawberry_banana_choco: "Клубника, банан и шоколад",
                 rafaello: "Рафаэлло",
                 desc_rafaello: "Кокосовые стружки, молоко",
                 spaghetti: "Спагетти из блинчиков",
@@ -1107,6 +1201,24 @@
                 coffee_art: "Кофе с рисунком",
                 desc_coffee_art: "Латте-арт с вашим изображением",
                 section_iced_coffee: "Холодный кофе",
+                section_tea: "Чайная карта",
+                tea_collection: "Ароматные чаи",
+                tea_signature: "Фирменный чай",
+                desc_tea_signature: "Фирменный купаж от DOZA",
+                tea_multifruit: "Мультифрукт чай",
+                desc_tea_multifruit: "Яркий фруктовый вкус",
+                tea_barberry: "Чёрный чай с барбарисом и фруктами",
+                desc_tea_barberry: "Барбарис и сушёные фрукты",
+                tea_mojito: "Чай мохито",
+                desc_tea_mojito: "Мята и лайм",
+                tea_green: "Зелёный чай",
+                desc_tea_green: "Классический зелёный чай",
+                tea_pineapple: "Ананасовый чай",
+                desc_tea_pineapple: "Тропический ананасовый вкус",
+                tea_jasmine: "Жасмин",
+                desc_tea_jasmine: "Нежный цветочный аромат",
+                tea_surprise: "Чай сюрприз",
+                desc_tea_surprise: "Секретный рецепт от бариста",
                 sweet: "Сладкие",
                 toppings_title: "Добавки",
                 honey: "Мёд натуральный",
@@ -1133,6 +1245,7 @@
                 subtitle: "Coffee & Pancakes",
                 tab_blini: "Pancakes",
                 tab_coffee: "Coffee",
+                tab_tea: "Tea",
                 tab_toppings: "Toppings",
                 search_placeholder: "Search...",
                 section_blini: "Pancakes",
@@ -1153,6 +1266,10 @@
                 desc_mix: "Banana, strawberry and chocolate",
                 filling_yogurt: "Yogurt Filling",
                 desc_yogurt: "Banana, berries, yogurt",
+                filling_cottage_berries: "Pancakes with Cottage Cheese & Berries",
+                desc_cottage_berries: "Cottage cheese and fresh berries",
+                filling_strawberry_banana_choco: "Strawberry Banana Chocolate",
+                desc_strawberry_banana_choco: "Strawberry, banana and chocolate",
                 rafaello: "Raffaello",
                 desc_rafaello: "Coconut flakes, milk",
                 spaghetti: "Pancake Spaghetti",
@@ -1183,6 +1300,24 @@
                 coffee_art: "Coffee with Art",
                 desc_coffee_art: "Latte art with your image",
                 section_iced_coffee: "Iced Coffee",
+                section_tea: "Tea Menu",
+                tea_collection: "Aromatic Teas",
+                tea_signature: "Signature Tea",
+                desc_tea_signature: "Signature blend from DOZA",
+                tea_multifruit: "Multifruit Tea",
+                desc_tea_multifruit: "Bright fruity flavor",
+                tea_barberry: "Black Tea with Barberry & Fruits",
+                desc_tea_barberry: "Barberry and dried fruits",
+                tea_mojito: "Mojito Tea",
+                desc_tea_mojito: "Mint and lime",
+                tea_green: "Green Tea",
+                desc_tea_green: "Classic green tea",
+                tea_pineapple: "Pineapple Tea",
+                desc_tea_pineapple: "Tropical pineapple flavor",
+                tea_jasmine: "Jasmine",
+                desc_tea_jasmine: "Delicate floral aroma",
+                tea_surprise: "Surprise Tea",
+                desc_tea_surprise: "Secret recipe from barista",
                 sweet: "Sweet",
                 toppings_title: "Toppings",
                 honey: "Natural Honey",
@@ -1204,66 +1339,89 @@
                 nav_coffee: "Coffee",
                 soon: "Soon..."
             },
-            uz: {
+                        uz: {
                 open: "Ochiq",
                 subtitle: "Kofe va Blinchiklar",
                 tab_blini: "Blinchiklar",
                 tab_coffee: "Kofe",
+                tab_tea: "Choy",
                 tab_toppings: "Qo'shimchalar",
                 search_placeholder: "Qidirish...",
                 section_blini: "Blinchiklar",
                 classic: "Klassik",
                 blini_classic: "Klassik Blinchiklar",
                 desc_classic: "Asal yoki shokolad bilan, bezatilgan",
-                blini_cocoa: "Kakao Blinchik",
+                blini_cocoa: "Kakao Blinchigi",
                 desc_cocoa: "Asal yoki shokolad bilan, bezatilgan",
-                filling_classic: "Klassik Nacha",
+                filling_classic: "Klassik Boshliq",
                 desc_filling_classic: "Sut, shokolad",
-                filling_berry: "Mevali Nacha",
+                filling_berry: "Mevali Boshliq",
                 desc_filling_berry: "Mevalar, asal",
-                filling_banana_choco: "Banan-Shokolad Nacha",
+                filling_banana_choco: "Banan-Shokoladli Boshliq",
                 desc_banana_choco: "Banan va shokolad",
-                filling_strawberry_choco: "Qulupnay-Shokolad Nacha",
+                filling_strawberry_choco: "Qulupnay-Shokoladli Boshliq",
                 desc_strawberry_choco: "Qulupnay va shokolad",
-                filling_mix: "Aralash Nacha",
+                filling_mix: "Aralash Boshliq",
                 desc_mix: "Banan, qulupnay va shokolad",
-                filling_yogurt: "Yogurtli Nacha",
+                filling_yogurt: "Yogurtli Boshliq",
                 desc_yogurt: "Banan, mevalar, yogurt",
+                filling_cottage_berries: "Suzma va Mevali Blinchiklar",
+                desc_cottage_berries: "Suzma va yangi mevalar",
+                filling_strawberry_banana_choco: "Qulupnay-Banan-Shokolad",
+                desc_strawberry_banana_choco: "Qulupnay, banan va shokolad",
                 rafaello: "Raffaello",
                 desc_rafaello: "Kokos chipslari, sut",
                 spaghetti: "Blinchik Spagetti",
                 desc_spaghetti: "Shokolad va mevalar",
-                section_rolls: "Rollar",
-                blini_rolls: "Blinchik Rollari",
-                roll_classic: "Klassik Roll",
-                desc_roll_classic: "Oralgan blin, bo'laklarga kesilgan",
-                size_6_200: "6 ta • 200g",
-                roll_double: "Ikki qavatli Roll",
-                desc_roll_double: "Bitta rollda ikki blin",
-                size_8_280: "8 ta • 280g",
-                roll_maxi: "Maxi Roll",
-                desc_roll_maxi: "Katta roll kompaniya uchun",
-                size_10_350: "10 ta • 350g",
+                section_rolls: "Ruletlar",
+                blini_rolls: "Blinchik Ruletlari",
+                roll_classic: "Klassik Rulet",
+                desc_roll_classic: "O'ralgan blinchik, bo'laklarga kesilgan",
+                size_6_200: "6 dona • 200g",
+                roll_double: "Ikki qavatli Rulet",
+                desc_roll_double: "Bitta ruletda ikki blinchik",
+                size_8_280: "8 dona • 280g",
+                roll_maxi: "Maxi Rulet",
+                desc_roll_maxi: "Katta rulet kompaniya uchun",
+                size_10_350: "10 dona • 350g",
                 section_macarons: "Makaronlar",
                 blini_macarons: "Blinchik Makaronlari",
-                set_mini: "Mini To'plam",
-                desc_set_mini: "Nachasiz 5 ta mini blinchik",
-                size_5_150: "5 ta • 150g",
-                set_standard: "Standart To'plam",
+                set_mini: "Mini Set",
+                desc_set_mini: "Boshliqsiz 5 ta mini blinchik",
+                size_5_150: "5 dona • 150g",
+                set_standard: "Standart Set",
                 desc_set_standard: "8 ta mini blinchik",
-                size_8_240: "8 ta • 240g",
-                set_maxi: "Maxi To'plam",
+                size_8_240: "8 dona • 240g",
+                set_maxi: "Maxi Set",
                 desc_set_maxi: "Kompaniya uchun 12 ta mini blinchik",
-                size_12_360: "12 ta • 360g",
+                size_12_360: "12 dona • 360g",
                 section_hot_coffee: "Issiq Kofe",
                 coffee_art: "Rasmli Kofe",
                 desc_coffee_art: "Sizning rasmingiz bilan latte art",
                 section_iced_coffee: "Sovuq Kofe",
+                section_tea: "Choy Menyusi",
+                tea_collection: "Xushbo'y Choylar",
+                tea_signature: "Firma Choy",
+                desc_tea_signature: "DOZA dan maxsus aralashma",
+                tea_multifruit: "Multifrukt Choyi",
+                desc_tea_multifruit: "Yorqin mevali ta'm",
+                tea_barberry: "Barbaris va Mevali Qora Choy",
+                desc_tea_barberry: "Barbaris va quritilgan mevalar",
+                tea_mojito: "Mojito Choyi",
+                desc_tea_mojito: "Yalpiz va laym",
+                tea_green: "Yashil Choy",
+                desc_tea_green: "Klassik yashil choy",
+                tea_pineapple: "Ananas Choyi",
+                desc_tea_pineapple: "Tropik ananas ta'mi",
+                tea_jasmine: "Jasmin",
+                desc_tea_jasmine: "Nozik gul xushbo'yligi",
+                tea_surprise: "Sovrin Choyi",
+                desc_tea_surprise: "Baristadan sirli retsept",
                 sweet: "Shirin",
                 toppings_title: "Qo'shimchalar",
                 honey: "Tabiiy Asal",
                 choco_paste: "Shokolad Pastasi",
-                condensed: "Qaymoq",
+                condensed: "Qaymoq (Sutsiz)",
                 sour_cream: "Smetana",
                 raspberry_jam: "Malina Murabboyi",
                 butter: "Saryog'",
@@ -1271,7 +1429,7 @@
                 berry_mix: "Mevalar Aralashmasi",
                 walnuts: "Yong'oq",
                 caramel: "Karamel Sousi",
-                cottage_cheese: "Tvorog va Mayiz",
+                cottage_cheese: "Suzma va Mayiz",
                 toppings_note: "Bitta buyurtma uchun bir nechta qo'shimcha tanlash mumkin",
                 share_menu: "Menyu Ulashish",
                 scan_qr: "Telefoningizda ochish uchun skanerlang",
@@ -1314,53 +1472,73 @@
             document.documentElement.lang = lang;
         }
 
+        // ИСПРАВЛЕННАЯ функция переключения вкладок
         function switchTab(tabId, btn) {
-            // Scroll to top
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            // Сначала скрываем все вкладки
+            document.querySelectorAll('.tab-content').forEach(t => {
+                t.classList.remove('active');
+                t.style.display = 'none';
             });
             
-            setTimeout(() => {
-                // Hide all tabs
-                document.querySelectorAll('.tab-content').forEach(t => {
-                    t.classList.remove('active');
-                    t.style.display = 'none';
-                });
-                
-                // Show selected tab
-                const selectedTab = document.getElementById(tabId);
-                selectedTab.classList.add('active');
+            // Убираем активный класс со всех кнопок
+            document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+            
+            // Показываем выбранную вкладку
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) {
                 selectedTab.style.display = 'block';
-                
-                // Update tab buttons
-                document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+                selectedTab.classList.add('active');
+            }
+            
+            // Делаем кнопку активной
+            if (btn) {
                 btn.classList.add('active');
-                
-                // Clear search
-                document.getElementById('searchInput').value = '';
-                document.querySelectorAll('.hidden-item').forEach(item => {
-                    item.classList.remove('hidden-item');
-                });
-                const noResults = selectedTab.querySelector('.no-results');
-                if (noResults) noResults.remove();
-                
-                // Re-trigger animations
+            }
+            
+            // Очищаем поиск
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            
+            // Убираем скрытие у всех элементов
+            document.querySelectorAll('.hidden-item').forEach(item => {
+                item.classList.remove('hidden-item');
+            });
+            
+            // Удаляем сообщение "ничего не найдено"
+            const noResults = selectedTab ? selectedTab.querySelector('.no-results') : null;
+            if (noResults) noResults.remove();
+            
+            // Запускаем анимации заново
+            if (selectedTab) {
                 const items = selectedTab.querySelectorAll('.item-card, .topping-card');
                 items.forEach((item, index) => {
                     item.style.animation = 'none';
                     item.offsetHeight; // Trigger reflow
                     item.style.animation = `fadeInUp 0.5s forwards ${index * 0.05}s`;
                 });
-            }, 100);
+            }
+            
+            // Прокручиваем к началу контента (после переключения)
+            setTimeout(() => {
+                const tabsContainer = document.querySelector('.category-tabs');
+                if (tabsContainer) {
+                    const yOffset = tabsContainer.getBoundingClientRect().top + window.pageYOffset - 80;
+                    window.scrollTo({
+                        top: yOffset,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 50);
         }
         
         function scrollToSection(sectionId, btn) {
-            // Update active nav item
+            // Обновляем активный элемент навигации
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            btn.classList.add('active');
+            if (btn) btn.classList.add('active');
             
-            // If it's home, scroll to top
+            // Если это главная - прокручиваем наверх
             if (sectionId === 'home') {
                 window.scrollTo({
                     top: 0,
@@ -1369,15 +1547,15 @@
                 return;
             }
             
-            // If it's a tab section, switch to that tab first
-            if (['blini', 'coffee', 'toppings'].includes(sectionId)) {
+            // Если это вкладка, переключаем на неё
+            if (['blini', 'coffee', 'tea', 'toppings'].includes(sectionId)) {
                 const tabBtn = document.querySelector(`.category-tab[onclick*="${sectionId}"]`);
                 if (tabBtn) {
                     switchTab(sectionId, tabBtn);
                 }
             }
             
-            // Scroll to section
+            // Прокручиваем к секции
             const element = document.getElementById(sectionId);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1404,64 +1582,99 @@
                 }
             });
             
-            // Show/hide no results message
+            // Показываем/скрываем сообщение "ничего не найдено"
             let noResults = activeTab.querySelector('.no-results');
             if (!hasResults) {
                 if (!noResults) {
-                    noResults = document.createElement('div ');
-noResults.className = 'no-results';
-noResults.textContent = currentLang === 'ru' ? 'Ничего не найдено' :
-currentLang === 'en' ? 'Nothing found' : 'Hech narsa topilmadi';
-activeTab.appendChild(noResults);
-}
-noResults.style.display = 'block';
-} else if (noResults) {
-noResults.style.display = 'none';
-}
-}
-    // Initialize QR code
-    const currentUrl = window.location.href.split('?')[0].split('#')[0];
-    document.getElementById('qrUrl').textContent = currentUrl.replace('https://', '').replace('http://', '');
-    
-    new QRCode(document.getElementById('qrcode'), {
-        text: currentUrl,
-        width: 160,
-        height: 160,
-        colorDark: '#0a0a0a',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-    });
-    
-    // Intersection Observer for nav highlighting
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                    // Check if nav item has onclick with this id
-                    const onclick = nav.getAttribute('onclick');
-                    if (onclick && onclick.includes(id)) {
-                        nav.classList.add('active');
-                    }
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = currentLang === 'ru' ? 'Ничего не найдено' :
+                        currentLang === 'en' ? 'Nothing found' : 'Hech narsa topilmadi';
+                    activeTab.appendChild(noResults);
+                }
+                noResults.style.display = 'block';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
+        }
+        
+        // ИСПРАВЛЕННАЯ инициализация QR-кода
+        function initQRCode() {
+            const qrcodeContainer = document.getElementById('qrcode');
+            const qrUrlElement = document.getElementById('qrUrl');
+            
+            if (!qrcodeContainer || !qrUrlElement) return;
+            
+            // Очищаем контейнер
+            qrcodeContainer.innerHTML = '';
+            
+            // Получаем текущий URL
+            const currentUrl = window.location.href.split('?')[0].split('#')[0];
+            
+            // Обновляем текст URL
+            qrUrlElement.textContent = currentUrl.replace('https://', '').replace('http://', '');
+            
+            // Проверяем, загружена ли библиотека QRCode
+            if (typeof QRCode !== 'undefined') {
+                try {
+                    new QRCode(qrcodeContainer, {
+                        text: currentUrl,
+                        width: 160,
+                        height: 160,
+                        colorDark: '#0a0a0a',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } catch (e) {
+                    console.error('QR Code generation failed:', e);
+                    qrcodeContainer.innerHTML = '<div style="color: #ff6b35; font-size: 12px;">QR Code Error</div>';
+                }
+            } else {
+                // Если библиотека не загружена, показываем заглушку
+                qrcodeContainer.innerHTML = '<div style="width: 160px; height: 160px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #333; font-size: 12px; border-radius: 8px;">QR Code</div>';
+            }
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализируем язык
+            setLanguage(currentLang);
+            
+            // Инициализируем QR-код с небольшой задержкой для загрузки библиотеки
+            setTimeout(initQRCode, 500);
+            
+            // Анимации для начальной вкладки
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const items = activeTab.querySelectorAll('.item-card, .topping-card');
+                items.forEach((item, index) => {
+                    item.style.animationDelay = `${index * 0.05}s`;
                 });
             }
         });
-    }, { threshold: 0.3 });
-    
-    ['home', 'blini', 'coffee', 'toppings', 'qr'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) observer.observe(el);
-    });
-    
-    // Initialize language on load
-    setLanguage(currentLang);
-    
-    // Animate items on initial load
-    document.querySelectorAll('.tab-content.active .item-card, .tab-content.active .topping-card').forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.05}s`;
-    });
-</script>
+        
+        // Intersection Observer для подсветки навигации
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                        const onclick = nav.getAttribute('onclick');
+                        if (onclick && onclick.includes(id)) {
+                            nav.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        // Наблюдаем за всеми секциями
+        ['home', 'blini', 'coffee', 'tea', 'toppings', 'qr'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>
